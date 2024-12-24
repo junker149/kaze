@@ -8,7 +8,7 @@ const blogRouter = new Hono<{
         DATABASE_URL: string,
         token: string,
         JWT: string,
-        jwt: string
+        jwtToken: string
     },
     Variables: {
         userId: string
@@ -16,9 +16,9 @@ const blogRouter = new Hono<{
 }>()
 
 blogRouter.use('/*', async (c, next) => {
-    const jwt = c.req.header("authorization");
-    const token = jwt?.split(' ')[1];
-    console.log(token);
+    console.log(c.req.header);
+    const jwtToken = c.req.header("Authorization");
+    const token = jwtToken?.split(' ')[1];
     // @ts-ignore
     const payload = await verify(token, c.env.JWT);
     if (!payload.id) {
