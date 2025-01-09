@@ -54,7 +54,7 @@ Make sure you have the following installed:
 ### Installation  
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/YourUsername/kaze.git
+   git clone https://github.com/junker149/kaze.git
    cd kaze
 2. Install dependencies:
    ```bash
