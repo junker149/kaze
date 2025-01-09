@@ -81,4 +81,4 @@ Have questions, ideas, or feedback? Feel free to reach out:
 - GitHub: YourUsername
 - Email: YourEmail@example.com
 
-**Let your ideas flow like the wind with Kaze.**
+***Let your ideas flow like the wind with Kaze.***
