@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { verify } from 'hono/jwt'
 
+// Create a new Hono instance
 const blogRouter = new Hono<{
     Bindings: {
         DATABASE_URL: string,
@@ -15,8 +16,9 @@ const blogRouter = new Hono<{
     }
 }>()
 
+// Middleware to verify the JWT token
 blogRouter.use('/*', async (c, next) => {
-    console.log(c.req.header);
+    // console.log(c.req.header);
     const jwtToken = c.req.header("Authorization");
     const token = jwtToken?.split(' ')[1];
     // @ts-ignore
@@ -33,6 +35,7 @@ blogRouter.use('/*', async (c, next) => {
     await next();
   })
 
+// Create a new blog post
 blogRouter.post('/blog', async (c) => {
     const Client = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
@@ -61,6 +64,7 @@ blogRouter.post('/blog', async (c) => {
     }
 })
 
+// Update a blog post
 blogRouter.put('/blog/:id?', async (c) => {
     const Client = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL
@@ -99,6 +103,7 @@ blogRouter.put('/blog/:id?', async (c) => {
     }
 })
 
+// Get a blog post by ID
 blogRouter.get('/blog/:id?', async (c) => {
     const Client = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL
@@ -129,6 +134,7 @@ blogRouter.get('/blog/:id?', async (c) => {
     }
 })
 
+// Get all blog posts
 blogRouter.get('/blogs', async (c) => {
     const Client = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL
