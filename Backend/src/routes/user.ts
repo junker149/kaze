@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { sign } from 'hono/jwt'
 
+// Create a new Hono instance
 const userRouter = new Hono<{
     Bindings: {
         DATABASE_URL: string,
@@ -15,6 +16,7 @@ const userRouter = new Hono<{
     }
 }>()
 
+// Create a new user
 userRouter.post('/signup', async (c) => {
     const Client = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
@@ -46,6 +48,7 @@ userRouter.post('/signup', async (c) => {
     }
 })
 
+// Sign in a user
 userRouter.post('/signin', async (c) => {
     const Client = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,

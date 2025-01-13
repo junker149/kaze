@@ -18,7 +18,6 @@ const blogRouter = new Hono<{
 
 // Middleware to verify the JWT token
 blogRouter.use('/*', async (c, next) => {
-    // console.log(c.req.header);
     const jwtToken = c.req.header("Authorization");
     const token = jwtToken?.split(' ')[1];
     // @ts-ignore
