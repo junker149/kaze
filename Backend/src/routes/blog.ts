@@ -2,6 +2,8 @@ import { Hono } from 'hono'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { verify } from 'hono/jwt'
+import { postBlogInput } from '@junker149/common'
+import { updateBlogInput } from '@junker149/common'
 
 // Create a new Hono instance
 const blogRouter = new Hono<{
@@ -23,16 +25,16 @@ blogRouter.use('/*', async (c, next) => {
     // @ts-ignore
     const payload = await verify(token, c.env.JWT);
     if (!payload.id) {
-      c.status(403);
-      return c.json({
-        message: 'Forbidden'
-      })
+        c.status(403);
+        return c.json({
+            message: 'Forbidden'
+        })
     }
     console.log(payload.id);
     // @ts-ignore
     c.set("userId", payload.id);
     await next();
-  })
+})
 
 // Create a new blog post
 blogRouter.post('/blog', async (c) => {
@@ -40,6 +42,15 @@ blogRouter.post('/blog', async (c) => {
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
     const body = await c.req.json();
+
+    const { success } = postBlogInput.safeParse(body);
+    if (!success) {
+        c.status(400);
+        return c.json({
+            message: 'Bad Request'
+        })
+    }
+
     const userId = c.get('userId');
     try {
         const post = await Client.post.create({
@@ -69,6 +80,13 @@ blogRouter.put('/blog/:id?', async (c) => {
         datasourceUrl: c.env.DATABASE_URL
     }).$extends(withAccelerate());
     const body = await c.req.json();
+    const { success } = updateBlogInput.safeParse(body);
+    if (!success) {
+        c.status(400);
+        return c.json({
+            message: 'Bad Request'
+        })
+    }
     const postId = c.req.param('id');
     const userId = c.get('userId');
     try {
