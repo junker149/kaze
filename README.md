@@ -1,14 +1,14 @@
 # 🌬️ Kaze  
 
 *Kaze* (風) means "wind" in Japanese, symbolizing the free flow of thoughts and ideas.  
-This project aims to create a **medium-like blogging platform** with a **beautiful UI** where users can share their stories, articles, and insights effortlessly.  
+This project aims to create a **medium-like blogging platform** with a **minimalistic UI** where users can share their stories, articles, and insights effortlessly.  
 
 ---
 
 ## 🚀 Features  
 
 - 📝 **Rich Text Editor**: Craft and format blogs with an intuitive editor.  
-- 🎨 **Beautiful UI**: Aesthetic, responsive design for a seamless user experience.  
+- 🎨 **Minimalistic UI**: Aesthetic, responsive design for a seamless user experience.  
 - 🏷️ **Tagging System**: Categorize and discover blogs with tags.  
 - 🔍 **Search & Explore**: Find blogs and authors through a powerful search feature.  
 - 📊 **Analytics**: Track views, likes, and comments on posts (future implementation).  
