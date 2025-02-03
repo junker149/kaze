@@ -1,12 +1,23 @@
 import { useState } from "react";
 import Input from "../Components/Input";
 import { SigninInput } from "@junker149/common";
+import axios from 'axios';
 
 export default function Signin() {
     const [signinInputs, setSigninInputs] = useState<SigninInput>({
         email: "",
         password: ""
     })
+
+    async function sendRequest(){
+        try{
+            const response = await axios.post(`https://backend.rawalaman-0505.workers.dev/api/v1/user/signin`, signinInputs);
+            //@ts-ignore
+            localStorage.setItem('token',response.data.token);
+        }catch(err){
+            console.log(err);
+        }
+    }
 
     return <div className="flex">
         <div className="w-full h-screen flex justify-center items-center" style={{ backgroundColor: "#F3F5F7" }}>
@@ -25,9 +36,7 @@ export default function Signin() {
                         password: e.target.value
                     })
                 }}></Input>
-                <button className="text-center bg-black text-white px-20 w-full font-semibold py-2 rounded-sm" onClick={(e) => {
-                    console.log(e);
-                }}>Sign In</button>
+                <button className="text-center bg-black text-white px-20 w-full font-semibold py-2 rounded-sm" onClick={sendRequest}>Sign In</button>
             </div>
         </div>
         <div className="w-3/4 h-screen flex justify-center items-center bg-gray-200">
