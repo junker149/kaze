@@ -1,13 +1,30 @@
+import { useState } from "react";
 import Input from "../Components/Input";
+import { SigninInput } from "@junker149/common";
 
-export default function Signup() {
+export default function Signin() {
+    const [signinInputs, setSigninInputs] = useState<SigninInput>({
+        email: "",
+        password: ""
+    })
+
     return <div className="flex">
         <div className="w-full h-screen flex justify-center items-center" style={{ backgroundColor: "#F3F5F7" }}>
             <div className=" w-auto h-auto p-10">
                 <div className="text-4xl font-bold font-mono text-center mb-2">Enter your details</div>
                 <div className="font-mono text-gray-400 text-center mb-6">Don't have an account?<a href="/signup" className="underline">Sign Up</a></div>
-                <Input placeholder="xyz@gmail.com" label="Email"></Input>
-                <Input placeholder="12345678" label="Password"></Input>
+                <Input placeholder="xyz@gmail.com" label="Email" onChange={(e)=>{
+                    setSigninInputs({
+                        ...signinInputs,
+                        email: e.target.value
+                    })
+                }} ></Input>
+                <Input placeholder="12345678" label="Password" type="password" onChange={(e)=>{
+                    setSigninInputs({
+                        ...signinInputs,
+                        password: e.target.value
+                    })
+                }}></Input>
                 <button className="text-center bg-black text-white px-20 w-full font-semibold py-2 rounded-sm" onClick={(e) => {
                     console.log(e);
                 }}>Sign In</button>
